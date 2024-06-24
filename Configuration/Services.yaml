@@ -1,0 +1,28 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Exdeliver\ExdeliverWcag\:
+    resource: '../Classes/*'
+
+  Exdeliver\ExdeliverWcag\Controller\WcagAnalysisController:
+    public: true
+    arguments:
+      $moduleTemplateFactory: '@TYPO3\CMS\Backend\Template\ModuleTemplateFactory'
+      $wcagAnalysisService: '@Exdeliver\ExdeliverWcag\Service\WcagAnalysisService'
+      $pageRenderer: '@TYPO3\CMS\Core\Page\PageRenderer'
+
+  Exdeliver\ExdeliverWcag\EventListener\PerformWcagAnalysisListener:
+    tags:
+      - name: 'event.listener'
+        identifier: 'exdeliver-wcag-perform-analysis'
+        method: '__invoke'
+        event: 'TYPO3\CMS\Core\DataHandling\DataHandler'
+
+  Exdeliver\ExdeliverWcag\Service\WcagAnalysisService:
+    arguments:
+      $connectionPool: '@TYPO3\CMS\Core\Database\ConnectionPool'
+      $siteFinder: '@TYPO3\CMS\Core\Site\SiteFinder'
+      $extensionConfiguration: '@TYPO3\CMS\Core\Configuration\ExtensionConfiguration'

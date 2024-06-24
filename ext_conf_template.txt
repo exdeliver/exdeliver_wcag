@@ -1,0 +1,5 @@
+# cat=basic/enable; type=string; label=Chrome Driver URL
+chromeDriverUrl = http://localhost:9515
+
+# cat=basic/enable; type=string; label=Chrome Options
+chromeOptions = --headless,--disable-gpu,--no-sandbox

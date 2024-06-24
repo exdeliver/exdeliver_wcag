@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2023-05-01T00:00:00Z" product-name="exdeliver_wcag">
+        <header/>
+        <body>
+            <trans-unit id="pages.tab.wcag">
+                <source>WCAG Accessibility</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_exdeliverwcag_readability_score">
+                <source>Readability Score</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_exdeliverwcag_problems">
+                <source>WCAG Problems</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_exdeliverwcag_improvements">
+                <source>WCAG Improvements</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_exdeliverwcag_conformance_level">
+                <source>WCAG Conformance Level</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_exdeliverwcag_conformance_level.A">
+                <source>A (Lowest)</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_exdeliverwcag_conformance_level.AA">
+                <source>AA (Mid Range)</source>
+            </trans-unit>
+            <trans-unit id="pages.tx_exdeliverwcag_conformance_level.AAA">
+                <source>AAA (Highest)</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

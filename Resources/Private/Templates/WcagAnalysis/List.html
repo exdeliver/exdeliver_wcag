@@ -1,0 +1,103 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Module" />
+
+<f:section name="Content">
+    <f:be.pageRenderer includeJavaScriptModules="{0: '@exdeliver/exdeliver-wcag/WcagAnalysis.js'}" />
+    <h1>WCAG Accessibility Analysis</h1>
+
+    <f:if condition="{page}">
+        <h2>Page: {page.title} (UID: {pageUid})</h2>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Current WCAG Status</div>
+            <div class="panel-body">
+                <p>Conformance Level: {currentConformanceLevel}</p>
+                <p>Readability Score: {readabilityScore -> f:format.number(decimals: 2)}</p>
+
+                <h3>Problems:</h3>
+                <f:if condition="{problems}">
+                    <ul class="list-group">
+                        <f:for each="{problems}" as="problem">
+                            <li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{problem.message}</h5>
+                                </div>
+                                <f:if condition="{problem.element}">
+                                    <p class="mb-1">
+                                        Element: {problem.element.tagName}<br>
+                                        Text: {problem.element.text}<br>
+                                        ID: {problem.element.id}<br>
+                                        Class: {problem.element.class}
+                                    </p>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+
+                <h3 class="mt-4">Improvements:</h3>
+                <f:if condition="{improvements}">
+                    <ul class="list-group">
+                        <f:for each="{improvements}" as="improvement">
+                            <li class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{improvement.message}</h5>
+                                </div>
+                                <f:if condition="{improvement.element}">
+                                    <p class="mb-1">
+                                        Element: {improvement.element.tagName}<br>
+                                        XPath: {improvement.element.xpath}<br>
+                                        Text: {improvement.element.text}<br>
+                                        ID: {improvement.element.id}<br>
+                                        Class: {improvement.element.class}
+                                    </p>
+                                </f:if>
+                            </li>
+                        </f:for>
+                    </ul>
+                </f:if>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Run New Analysis</div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label for="conformanceLevel">WCAG Conformance Level:</label>
+                        <select id="conformanceLevel" name="conformanceLevel" class="form-control">
+                            <f:for each="{conformanceLevels}" as="level">
+                                <f:if condition="{level} == {currentConformanceLevel}">
+                                    <f:then>
+                                        <option value="{level}" selected="selected">{level}</option>
+                                    </f:then>
+                                    <f:else>
+                                        <option value="{level}">{level}</option>
+                                    </f:else>
+                                </f:if>
+                            </f:for>
+                        </select>
+                    </div>
+                    <button id="perform-wcag-analysis" class="btn btn-primary" data-page-uid="{pageUid}">
+                        Perform WCAG Analysis NOW
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="wcag-analysis-results"></div>
+    </f:if>
+
+    <f:if condition="{page} == NULL">
+        <div class="alert alert-info">
+            Please select a page to perform WCAG analysis.
+        </div>
+    </f:if>
+    <script type="module">
+    import WcagAnalysis from '@exdeliver/exdeliver-wcag/WcagAnalysis.js';
+    document.addEventListener('DOMContentLoaded', () => {
+        WcagAnalysis.initialize();
+    });
+    </script>
+</f:section>
+</html>
